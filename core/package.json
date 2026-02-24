@@ -1,18 +1,20 @@
 {
-	"name": "@gonzo-engineering/dummy",
-	"version": "0.0.1",
-	"type": "module",
-	"bin": {
-		"dummy": "dist/cli/index.mjs"
-	},
-	"scripts": {
-		"build": "tsdown",
-		"dev": "tsdown --watch",
-		"prepublishOnly": "npm run build"
-	},
-	"devDependencies": {
-		"@types/node": "^25.2.0",
-		"tsdown": "^0.20.1",
-		"typescript": "^5.3.0"
-	}
+    "name": "@gonzo-engineering/dummy",
+    "version": "0.0.1",
+    "type": "module",
+    "bin": {
+        "dummy": "./bin/dummy.js"
+    },
+    "files": [
+        "bin",
+        "src"
+    ],
+    "dependencies": {
+        "astro": "^5.17.3",
+        "fs-extra": "^11.3.3",
+        "execa": "^9.6.1"
+    },
+    "engines": {
+        "node": ">=20"
+    }
 }

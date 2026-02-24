@@ -1,17 +1,14 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
-    "rewriteRelativeImportExtensions": true,
-    "allowSyntheticDefaultImports": true,
-    "allowJs": true,
-    "checkJs": true,
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "NodeNext",
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
     "strict": true,
-    "module": "es2022",
-    "moduleResolution": "node",
-    "target": "es2022"
-  }
+    "resolveJsonModule": true,
+    "outDir": "dist",
+    "skipLibCheck": true
+  },
+  "include": ["src"]
 }

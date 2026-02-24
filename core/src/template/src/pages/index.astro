@@ -1,0 +1,41 @@
+---
+// @ts-expect-error - siteConfig.mjs will be generated
+import { siteName, siteDescription } from "../siteConfig.mjs";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{siteName}</title>
+  </head>
+  <body>
+    <main>
+      <h1>{siteName}</h1>
+      <p>{siteDescription}</p>
+    </main>
+    <footer>
+      <div>
+        Powered by <a href="https://gonzo.engineering">Gonzo Engineering</a>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  main {
+    font-family: serif;
+    text-align: center;
+    padding: 4rem;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+</style>
