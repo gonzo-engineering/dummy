@@ -1,41 +1,50 @@
 ---
-// @ts-expect-error - siteConfig.mjs will be generated
-import { siteName, siteDescription } from "../siteConfig.mjs";
+import siteConfig from "../siteConfig.json";
+import SiteLayout from "../layouts/SiteLayout.astro";
+const articles: Array<{
+  file: string;
+  frontmatter: { title: string; standfirst?: string };
+}> = Object.values(import.meta.glob("../../content/*.md", { eager: true }));
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>{siteName}</title>
-  </head>
-  <body>
-    <main>
-      <h1>{siteName}</h1>
-      <p>{siteDescription}</p>
-    </main>
-    <footer>
-      <div>
-        Powered by <a href="https://gonzo.engineering">Gonzo Engineering</a>
-      </div>
-    </footer>
-  </body>
-</html>
+<SiteLayout>
+  <div class="article-cards-container">
+    <h1>Latest articles</h1>
+
+    <ul>
+      {
+        articles.map((article) => (
+          <li>
+            <a
+              href={`/articles/${article.file.split("/").pop()?.replace(".md", "")}`}
+            >
+              <h3>{article.frontmatter.title}</h3>
+              {article.frontmatter.standfirst && (
+                <div>{article.frontmatter.standfirst}</div>
+              )}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <a href="/articles">See all articles</a>
+  </div>
+  <div class="support-container">
+    <h2>Support our journalism</h2>
+    <p>
+      We rely on the support of our readers to continue producing high-quality
+      journalism. If you enjoy our content, please consider becoming a member or
+      making a one-time donation. Your support helps us to keep our journalism
+      free and accessible to everyone.
+    </p>
+    <a href={siteConfig.supportLink} class="support-button">Support us</a>
+  </div>
+</SiteLayout>
 
 <style>
-  main {
-    font-family: serif;
-    text-align: center;
-    padding: 4rem;
-  }
-
-  footer {
-    text-align: center;
-    padding: 2rem;
-    font-size: 0.9rem;
-    color: #666;
-  }
-
-  h1 {
-    font-size: 3rem;
+  .article-cards-container,
+  .support-container {
+    max-width: 800px;
+    margin: 0 auto;
   }
 </style>

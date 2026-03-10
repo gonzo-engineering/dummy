@@ -1,0 +1,46 @@
+---
+import siteConfig from "../siteConfig.json";
+import "../../src/styles/global.css";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{siteConfig.siteName}</title>
+  </head>
+  <body>
+    <nav>
+      <a href="/">
+        <h1>{siteConfig.siteName}</h1>
+      </a>
+      <p>{siteConfig.siteDescription}</p>
+    </nav>
+    <main>
+      <slot />
+    </main>
+    <footer>
+      <div>
+        Powered by <a href="https://gonzo.engineering">Gonzo Engineering</a>
+      </div>
+    </footer>
+  </body>
+
+  <style>
+    nav {
+      font-family: serif;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    h1 {
+      font-size: 3rem;
+    }
+  </style>
+</html>
