@@ -1,0 +1,51 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+
+export async function getStaticPaths() {
+  const articles = import.meta.glob("../../../content/*.md");
+
+  return Object.keys(articles).map((article) => {
+    const slug = article.split("/").pop()?.replace(".md", "") ?? undefined;
+
+    if (!slug) {
+      throw new Error(`Invalid path: ${article}`);
+    }
+
+    return {
+      params: { slug },
+      props: { article },
+    };
+  });
+}
+
+const { article } = Astro.props;
+const post = await import(article);
+
+const { Content, frontmatter } = post;
+const { title, standfirst, author, publicationDate } = frontmatter;
+---
+
+<SiteLayout>
+  <div class="article-container">
+    <h2>{title}</h2>
+    {standfirst && <div class="standfirst">{standfirst}</div>}
+    {author && <div class="author">By {author}</div>}
+    <time datetime={publicationDate}
+      >{new Date(publicationDate).toLocaleDateString()}</time
+    >
+
+    <Content />
+  </div>
+</SiteLayout>
+
+<style>
+  .article-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .standfirst {
+    font-size: 1.4rem;
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+</style>

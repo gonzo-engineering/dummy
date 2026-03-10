@@ -1,0 +1,46 @@
+{
+    "name": "@gonzo-engineering/dummy",
+    "version": "0.0.1",
+    "description": "Publishing engine for shoestring journalism",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/gonzo-engineering/dummy.git"
+    },
+    "keywords": [
+        "astro",
+        "static-site",
+        "cli",
+        "ssg"
+    ],
+    "type": "module",
+    "bin": {
+        "dummy": "dist/cli.js"
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "dev": "tsx src/cli.ts",
+        "build": "tsc && cpy \"src/template/**/*\" dist/template --parents && chmod +x dist/cli.js",
+        "prepare": "npm run build"
+    },
+    "dependencies": {
+        "astro": "^5.18.0",
+        "execa": "^9.6.1",
+        "fs-extra": "^11.3.4"
+    },
+    "engines": {
+        "node": ">=20"
+    },
+    "devDependencies": {
+        "@types/fs-extra": "^11.0.4",
+        "@types/node": "^25.3.5",
+        "cpy-cli": "^7.0.0",
+        "tsx": "^4.21.0",
+        "typescript": "^5.9.3"
+    },
+    "exports": {
+        ".": "./dist/cli.js"
+    }
+}

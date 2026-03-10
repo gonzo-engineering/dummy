@@ -1,6 +1,6 @@
 ![Dummy logo](/docs/assets/dummy-logo.png)
 
-_The idea: a free, open source toolkit for grassroots news publishing that powers independent, community-focused journalism on shoestring budgets. [Dummying](https://www.ndsu.edu/pubweb/~rcollins/313editing/onlineclass/lecturefifteen.htm#:~:text=The%20process%20editors%20use%20to,the%20stories%20on%20the%20pages.) ain't dead, it's just digital._
+_The idea: a free, open source engine for grassroots news publishing that powers independent, community-focused journalism on shoestring budgets. [Dummying](https://www.ndsu.edu/pubweb/~rcollins/313editing/onlineclass/lecturefifteen.htm#:~:text=The%20process%20editors%20use%20to,the%20stories%20on%20the%20pages.) ain't dead, it's just digital._
 
 ---
 

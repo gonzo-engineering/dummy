@@ -1,0 +1,50 @@
+---
+import siteConfig from "../siteConfig.json";
+import SiteLayout from "../layouts/SiteLayout.astro";
+const articles: Array<{
+  file: string;
+  frontmatter: { title: string; standfirst?: string };
+}> = Object.values(import.meta.glob("../../content/*.md", { eager: true }));
+---
+
+<SiteLayout>
+  <div class="article-cards-container">
+    <h1>Latest articles</h1>
+
+    <ul>
+      {
+        articles.map((article) => (
+          <li>
+            <a
+              href={`/articles/${article.file.split("/").pop()?.replace(".md", "")}`}
+            >
+              <h3>{article.frontmatter.title}</h3>
+              {article.frontmatter.standfirst && (
+                <div>{article.frontmatter.standfirst}</div>
+              )}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <a href="/articles">See all articles</a>
+  </div>
+  <div class="support-container">
+    <h2>Support our journalism</h2>
+    <p>
+      We rely on the support of our readers to continue producing high-quality
+      journalism. If you enjoy our content, please consider becoming a member or
+      making a one-time donation. Your support helps us to keep our journalism
+      free and accessible to everyone.
+    </p>
+    <a href={siteConfig.supportLink} class="support-button">Support us</a>
+  </div>
+</SiteLayout>
+
+<style>
+  .article-cards-container,
+  .support-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+</style>
