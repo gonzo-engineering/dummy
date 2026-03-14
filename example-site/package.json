@@ -6,6 +6,6 @@
         "dev": "dummy dev"
     },
     "dependencies": {
-        "@gonzo-engineering/dummy": "^0.0.1"
+        "@gonzo-engineering/dummy": "^0.0.4"
     }
 }

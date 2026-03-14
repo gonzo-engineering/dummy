@@ -4,22 +4,23 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
 export async function getStaticPaths() {
   const articles = import.meta.glob("../../../content/*.md");
 
-  return Object.keys(articles).map((article) => {
-    const slug = article.split("/").pop()?.replace(".md", "") ?? undefined;
+  return Object.entries(articles).map(([path, resolver]) => {
+    const slug = path.split("/").pop()?.replace(".md", "");
 
     if (!slug) {
-      throw new Error(`Invalid path: ${article}`);
+      throw new Error(`Invalid path: ${path}`);
     }
 
     return {
       params: { slug },
-      props: { article },
+      props: { resolver },
     };
   });
 }
 
-const { article } = Astro.props;
-const post = await import(article);
+const { resolver } = Astro.props;
+
+const post = await (resolver as () => Promise<any>)();
 
 const { Content, frontmatter } = post;
 const { title, standfirst, author, publicationDate } = frontmatter;

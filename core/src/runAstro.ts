@@ -15,7 +15,25 @@ async function prepareProject() {
   await fs.ensureDir(tempDir);
   const templateDir = path.join(__dirname, "template");
 
-  await fs.copy(templateDir, tempDir);
+  await fs.ensureDir(tempDir);
+
+  if (!(await fs.pathExists(path.join(tempDir, "src")))) {
+    await fs.copy(templateDir, tempDir);
+  }
+
+  // Write package.json
+  await fs.writeJSON(
+    path.join(tempDir, "package.json"),
+    {
+      name: "dummy-site",
+      private: true,
+      type: "module",
+      dependencies: {
+        astro: "^6.0.4",
+      },
+    },
+    { spaces: 2 },
+  );
 
   // Write siteConfig
   await fs.writeJSON(path.join(tempDir, "src", "siteConfig.json"), config, {
@@ -26,12 +44,6 @@ async function prepareProject() {
   await fs.copy(
     path.join(process.cwd(), "content"),
     path.join(tempDir, "content"),
-  );
-
-  // Import astro package.json as JSON with assertion
-  const astroPkg = await import(
-    path.join(__dirname, "../node_modules/astro/package.json"),
-    { with: { type: "json" } }
   );
 
   // Minimal astro config
@@ -48,9 +60,10 @@ export default defineConfig({})
 }
 
 async function ensureAstroInstalled(tempDir: string) {
-  const nodeModules = path.join(tempDir, "node_modules");
+  const astroPath = path.join(tempDir, "node_modules", "astro", "package.json");
 
-  if (await fs.pathExists(nodeModules)) {
+  if (await fs.pathExists(astroPath)) {
+    console.log("Using cached Astro install");
     return;
   }
 
@@ -63,9 +76,7 @@ async function ensureAstroInstalled(tempDir: string) {
 
 async function runAstro(tempDir: string, command: string) {
   console.log(`Running Astro ${command} in .dummy...`);
-  const astroBin = path.join(__dirname, "../node_modules/.bin/astro");
-
-  await execa(astroBin, [command], {
+  await execa("npx", ["astro", command], {
     cwd: tempDir,
     stdio: "inherit",
   });
